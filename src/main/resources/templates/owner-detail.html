@@ -6,7 +6,7 @@
     <div class="container">
         <div class="d-flex mb-2">
             <h3 th:text="${owner.name}"></h3>
-            <a href="" class="btn btn-dark ms-auto">Edit owner</a>
+            <a th:href="${owner.id}+'/edit'" class="btn btn-dark ms-auto">Edit owner</a>
         </div>
         <table class="table table-dark table-striped">
             <tbody>
