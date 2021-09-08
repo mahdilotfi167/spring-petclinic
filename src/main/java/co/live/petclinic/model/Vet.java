@@ -21,4 +21,9 @@ public class Vet extends Person {
     public void setSpecialties(List<Specialty> specialties) {
         this.specialties = specialties;
     }
+
+    @Override
+    public String toString() {
+        return this.getName();
+    }
 }
