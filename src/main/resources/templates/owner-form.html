@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<th:block th:replace="base :: head(${isNew} ? 'new owner':'edit owner')" />
+
+<body>
+    <th:block th:replace="base :: navbar('owners')" />
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <form class="form" th:action="@{/owners/save}" method="post" th:object="${owner}">
+                <input type="hidden" th:field="*{id}">
+                <input placeholder="Carl Johnson" class="form-control bg-light text-dark mb-2" type="text" th:field="*{name}">
+                <input placeholder="New York ..." class="form-control bg-light text-dark mb-2" type="text" th:field="*{address}">
+                <input placeholder="975864024" class="form-control bg-light text-dark mb-2" type="text" th:field="*{phone}">
+                <input class="form-control bg-dark text-light mb-2" type="submit"
+                    th:value="${isNew} ? 'Add new' : 'Update owner'">
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="base :: scripts" />
+</body>
+
+</html>

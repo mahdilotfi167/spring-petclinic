@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<th:block th:replace="base :: head(${isNew} ? 'new pet':'edit pet')" />
+
+<body>
+    <th:block th:replace="base :: navbar('owners')" />
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <form class="form" th:action="@{/owners/{ownerId}/pets/save(ownerId=${ownerId})}" method="post"
+                th:object="${pet}">
+                <input type="hidden" th:field="*{id}">
+                <input type="hidden" th:field="*{owner}">
+                <input placeholder="Leo" class="form-control bg-light text-dark mb-2" type="text" th:field="*{name}">
+                <input placeholder="2020-01-12" class="form-control bg-light text-dark mb-2" type="text"
+                    th:field="*{birthDate}" pattern="\d\d\d\d-\d\d-\d\d">
+                <select class="form-control bg-light text-dark mb-2" th:field="*{category}">
+                    <option th:each="type : ${types}" th:value="${type.id}" th:text="${type.name}"></option>
+                </select>
+                <input class="form-control bg-dark text-light mb-2" type="submit"
+                    th:value="${isNew} ? 'Add pet' : 'Update pet'">
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="base :: scripts" />
+</body>
+
+</html>
