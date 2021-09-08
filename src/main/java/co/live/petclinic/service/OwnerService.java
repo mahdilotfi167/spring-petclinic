@@ -5,6 +5,7 @@ import java.util.List;
 import co.live.petclinic.model.Category;
 import co.live.petclinic.model.Owner;
 import co.live.petclinic.model.Pet;
+import co.live.petclinic.model.Visit;
 
 public interface OwnerService {
     public List<Owner> getOwners();
@@ -13,4 +14,5 @@ public interface OwnerService {
     public Pet getPet(int id);
     public List<Category> getTypes();
     public void savePet(Pet pet);
+    public void saveVisit(Visit visit);
 }

@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 import co.live.petclinic.model.Category;
 import co.live.petclinic.model.Owner;
 import co.live.petclinic.model.Pet;
+import co.live.petclinic.model.Visit;
 import co.live.petclinic.repository.CategoryRepository;
 import co.live.petclinic.repository.OwnerRepository;
 import co.live.petclinic.repository.PetRepository;
+import co.live.petclinic.repository.VisitRepository;
 
 @Service
 public class OwnerServiceImpl implements OwnerService {
@@ -21,6 +23,8 @@ public class OwnerServiceImpl implements OwnerService {
     private PetRepository petRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private VisitRepository visitRepository;
     
 
     @Override
@@ -52,4 +56,11 @@ public class OwnerServiceImpl implements OwnerService {
     public void savePet(Pet pet) {
         petRepository.save(pet);
     }
+
+    @Override
+    public void saveVisit(Visit visit) {
+        visitRepository.save(visit);
+    }
+
+    
 }

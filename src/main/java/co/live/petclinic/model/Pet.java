@@ -2,11 +2,13 @@ package co.live.petclinic.model;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,7 +25,8 @@ public class Pet extends Model {
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private Owner owner;
-
+    @OneToMany(mappedBy="pet")
+    private List<Visit> visits;
     public LocalDate getBirthDate() {
         return birthDate;
     }
@@ -54,6 +57,14 @@ public class Pet extends Model {
 
     public void setOwner(Owner owner) {
         this.owner = owner;
+    }
+
+    public List<Visit> getVisits() {
+        return visits;
+    }
+
+    public void setVisits(List<Visit> visits) {
+        this.visits = visits;
     }
 
     @Override

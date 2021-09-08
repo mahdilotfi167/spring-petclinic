@@ -1,5 +1,6 @@
 package co.live.petclinic.controller;
 
+import java.time.LocalDate;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import co.live.petclinic.model.Owner;
 import co.live.petclinic.model.Pet;
+import co.live.petclinic.model.Visit;
 import co.live.petclinic.service.OwnerService;
 
 @Controller
@@ -62,17 +65,30 @@ public class OwnerController {
         model.put("types", service.getTypes());
         return "pet-form";
     }
+
     @GetMapping("/{ownerId}/pets/{petId}/edit")
-    public String editPet(@PathVariable int ownerId,@PathVariable int petId,Map<String, Object> model) {
+    public String editPet(@PathVariable int ownerId, @PathVariable int petId, Map<String, Object> model) {
         model.put("pet", service.getPet(petId));
         model.put("isNew", false);
         model.put("ownerId", ownerId);
         model.put("types", service.getTypes());
         return "pet-form";
     }
+
     @PostMapping("/{ownerId}/pets/save")
-    public String savePet(@PathVariable int ownerId,@ModelAttribute Pet pet) {
+    public String savePet(@PathVariable int ownerId, @ModelAttribute Pet pet) {
         service.savePet(pet);
-        return "redirect:/owners/"+ ownerId;
+        return "redirect:/owners/" + ownerId;
+    }
+
+    @PostMapping("/{ownerId}/pets/{petId}/visits/save")
+    public String saveVisit(@RequestParam String description, @PathVariable int petId, @PathVariable int ownerId, Map<String, Object> model) {
+        Visit visit = new Visit();
+        visit.setPet(service.getPet(petId));
+        visit.setDate(LocalDate.now());
+        visit.setDescription(description);
+        service.saveVisit(visit);
+        model.put("activePet", petId);
+        return "redirect:/owners/" + ownerId;
     }
 }
